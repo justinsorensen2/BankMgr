@@ -23,39 +23,24 @@ namespace BankMgr
       var acctList = csvReader.GetRecords<AccountHolder>().ToList();
       //call read transactions method
       var transList = transHistory.ReadTransactions();
-      //set var for while loop that runs login
-      var loggingIn = true;
       //set var for while loop that runs after login
       var isRunning = true;
 
-      //welcome and ask for user name
+      //welcome and ask for user name, then set var for loginId
       Console.WriteLine("Welcome to Suncoast Bank.");
       Console.WriteLine("Please enter your user name.");
       var loginId = Console.ReadLine();
-      //check login ID against acctlist and set account to var
+      acctTracker.CheckUser(loginId, acctList);
+      //use loginId set account to var
       var acct1 = acctList.First(user => user.User == loginId);
+      acctTracker.LogIn(loginId, acct1);
 
-
-      while (loggingIn)
-      {
-        //ask for password, and start if based on veracity of input
-        Console.WriteLine($"Hello, {acct1.Name}. Please enter your password.");
-        var password = Console.ReadLine();
-        if (password == acct1.Password)
-        {
-          Console.WriteLine("Login successful.");
-          loggingIn = false;
-        }
-        else
-        {
-          Console.WriteLine("Incorrect username/password combination. Please try again.");
-        }
-      }
+      //Display account info
+      acctTracker.DisplayAccount(acct1);
+      //start while loop for user options
       while (isRunning)
       {
         var type = "";
-        //Display account info
-        acctTracker.DisplayAccount(acct1);
         //display options to user
         Console.WriteLine("Deposit to Checking(1), Deposit to Savings(2), Withdraw from Savings(3),");
         Console.WriteLine("Withdraw from Checking(4), Transfer from Savings to Checking(5),");
@@ -70,6 +55,7 @@ namespace BankMgr
           var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture);
           csvWriter.WriteRecords(acctList);
           writer.Flush();
+          transHistory.WriteTransaction(transList);
           isRunning = false;
         }
         else if (input == "8")

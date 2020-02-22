@@ -46,13 +46,10 @@ namespace BankMgr
       //change display color
       Console.ForegroundColor = ConsoleColor.Blue;
       //create list of transactions for logged in user only
-      foreach (var trans in transList)
+      var loggedInUserTrans = transList.Where(user => user.User == loginId).ToList();
+      foreach (var transact in loggedInUserTrans)
       {
-        var loggedInUserTrans = transList.Where(user => trans.User == loginId).ToList();
-        foreach (var transact in loggedInUserTrans)
-        {
-          Console.WriteLine($"On {transact.When} ${transact.TransactionAmt} {transact.TransactionType}");
-        }
+        Console.WriteLine($"On {transact.When} ${transact.TransactionAmt} {transact.TransactionType}");
       }
       //revert display color change
       Console.ForegroundColor = ConsoleColor.White;
@@ -61,5 +58,7 @@ namespace BankMgr
   }
 
 }
+
+
 
 

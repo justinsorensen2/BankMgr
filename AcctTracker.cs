@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace BankMgr
 {
@@ -10,7 +10,47 @@ namespace BankMgr
 
     public List<AccountHolder> AccountHolders = new List<AccountHolder>();
 
-
+    public string CheckUser(string loginId, List<AccountHolder> acctList)
+    {
+      //set var for while loop that checks username
+      var checkingUser = true;
+      //start while loop to check user
+      while (checkingUser)
+      {
+        var loginTrue = acctList.Any(user => user.User == loginId);
+        if (loginTrue == true)
+        {
+          checkingUser = false;
+        }
+        else
+        {
+          Console.WriteLine("That entry does not match an existing account.");
+          Console.WriteLine("Please enter your user name.");
+          loginId = Console.ReadLine();
+        }
+      }
+      return loginId;
+    }
+    public void LogIn(string loginId, AccountHolder acct1)
+    {
+      //set var for while loop that runs password check
+      var loggingIn = true;
+      while (loggingIn)
+      {
+        //ask for password, and start if based on veracity of input
+        Console.WriteLine($"Hello, {acct1.Name}. Please enter your password.");
+        var password = Console.ReadLine();
+        if (password == acct1.Password)
+        {
+          Console.WriteLine("Login successful.");
+          loggingIn = false;
+        }
+        else
+        {
+          Console.WriteLine("Incorrect username/password combination. Please try again.");
+        }
+      }
+    }
     public void DisplayAccount(AccountHolder acct1)
     {
       Console.ForegroundColor = ConsoleColor.Green;
