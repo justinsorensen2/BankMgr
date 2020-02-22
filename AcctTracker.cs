@@ -11,8 +11,6 @@ namespace BankMgr
     public List<AccountHolder> AccountHolders = new List<AccountHolder>();
 
 
-
-
     public void DisplayAccount(AccountHolder acct1)
     {
       Console.WriteLine($"User Name: {acct1.Name}");
