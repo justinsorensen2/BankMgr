@@ -41,10 +41,21 @@ namespace BankMgr
       var tempList = transCsvReader.GetRecords<Transaction>().ToList();
       return tempList;
     }
-    public void DisplayTransactions(string loginId, List<Transaction> transList, string type)
+    public void DisplayTransactions(string loginId, List<Transaction> transList)
     {
-
-      var loggedInUserTrans = transList.Select(user => transList.User == loginId);
+      //change display color
+      Console.ForegroundColor = ConsoleColor.Blue;
+      //create list of transactions for logged in user only
+      foreach (var trans in transList)
+      {
+        var loggedInUserTrans = transList.Where(user => trans.User == loginId).ToList();
+        foreach (var transact in loggedInUserTrans)
+        {
+          Console.WriteLine($"On {transact.When} ${transact.TransactionAmt} {transact.TransactionType}");
+        }
+      }
+      //revert display color change
+      Console.ForegroundColor = ConsoleColor.White;
     }
 
   }

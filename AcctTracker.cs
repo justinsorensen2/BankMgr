@@ -13,11 +13,13 @@ namespace BankMgr
 
     public void DisplayAccount(AccountHolder acct1)
     {
+      Console.ForegroundColor = ConsoleColor.Green;
       Console.WriteLine($"User Name: {acct1.Name}");
       Console.WriteLine($"Checking Account Balance: ${acct1.CheckingBalance}");
       Console.WriteLine($"Savings Account Balance: ${acct1.SavingsBalance}");
       var total = acct1.CheckingBalance + acct1.SavingsBalance;
       Console.WriteLine($"Total Balance: ${total}");
+      Console.ForegroundColor = ConsoleColor.White;
     }
     public void TransferToChecking(AccountHolder acct1, double amtToTransfer)
     {

@@ -60,10 +60,10 @@ namespace BankMgr
         Console.WriteLine("Deposit to Checking(1), Deposit to Savings(2), Withdraw from Savings(3),");
         Console.WriteLine("Withdraw from Checking(4), Transfer from Savings to Checking(5),");
         Console.WriteLine("Transfer from Checking to Savings(6), Display Balances(7),");
-        Console.WriteLine("or Save and Exit(8)");
+        Console.WriteLine("Display Transaction History(8), or Save and Exit(9)");
         Console.WriteLine("Please enter the number of your choice.");
         var input = Console.ReadLine();
-        if (input == "8")
+        if (input == "9")
         {
           //quit and save
           var writer = new StreamWriter("Accounts.csv");
@@ -71,6 +71,10 @@ namespace BankMgr
           csvWriter.WriteRecords(acctList);
           writer.Flush();
           isRunning = false;
+        }
+        else if (input == "8")
+        {
+          transHistory.DisplayTransactions(loginId, transList);
         }
         else if (input == "7")
         {
@@ -81,7 +85,7 @@ namespace BankMgr
         else if (input == "6")
         {
           //set type
-          type = "from Checking to Savings.";
+          type = "transferred from Checking to Savings.";
           //transfer from checking to savings
           Console.WriteLine("How much would you like to transfer from Checking to Savings?");
           var amtToTransfer = double.Parse(Console.ReadLine());
@@ -89,12 +93,12 @@ namespace BankMgr
           Console.WriteLine("Your transfer has been completed.");
           acctTracker.DisplayAccount(acct1);
           transHistory.CreateTransaction(amtToTransfer, loginId, transList, type);
-          transHistory.DisplayTransactions(loginId, transList, type);
+          transHistory.DisplayTransactions(loginId, transList);
         }
         else if (input == "5")
         {
           //set type
-          type = "from Savings to Checking.";
+          type = "transferred from Savings to Checking.";
           //tfr from savings to checking
           Console.WriteLine("How much would you like to transfer from Savings to Checking?");
           var amtToTransfer = double.Parse(Console.ReadLine());
@@ -102,12 +106,12 @@ namespace BankMgr
           Console.WriteLine("Your transfer has been completed.");
           acctTracker.DisplayAccount(acct1);
           transHistory.CreateTransaction(amtToTransfer, loginId, transList, type);
-          transHistory.DisplayTransactions(loginId, transList, type);
+          transHistory.DisplayTransactions(loginId, transList);
         }
         else if (input == "4")
         {
           //set type
-          type = "from Checking";
+          type = "withdrawn from Checking";
           //withdraw from checking
           Console.WriteLine("How much would you like to withdraw from Checking?");
           var amtToWithdraw = double.Parse(Console.ReadLine());
@@ -115,12 +119,12 @@ namespace BankMgr
           Console.WriteLine("Your withdrawal has been completed.");
           acctTracker.DisplayAccount(acct1);
           transHistory.CreateTransaction(amtToWithdraw, loginId, transList, type);
-          transHistory.DisplayTransactions(loginId, transList, type);
+          transHistory.DisplayTransactions(loginId, transList);
         }
         else if (input == "3")
         {
           //set type
-          type = "from Savings.";
+          type = "withdrawn from Savings.";
           //withdraw from savings
           Console.WriteLine("How much would you like to withdraw from Savings?");
           var amtToWithdraw = double.Parse(Console.ReadLine());
@@ -128,12 +132,12 @@ namespace BankMgr
           Console.WriteLine("Your withdrawal has been completed.");
           acctTracker.DisplayAccount(acct1);
           transHistory.CreateTransaction(amtToWithdraw, loginId, transList, type);
-          transHistory.DisplayTransactions(loginId, transList, type);
+          transHistory.DisplayTransactions(loginId, transList);
         }
         else if (input == "2")
         {
           //set type
-          type = "to Savings.";
+          type = "deposited to Savings.";
           //deposit to savings
           Console.WriteLine("How much would you like to deposit to Savings?");
           var amtToDeposit = double.Parse(Console.ReadLine());
@@ -141,12 +145,12 @@ namespace BankMgr
           Console.WriteLine("Your deposit has been completed.");
           acctTracker.DisplayAccount(acct1);
           transHistory.CreateTransaction(amtToDeposit, loginId, transList, type);
-          transHistory.DisplayTransactions(loginId, transList, type);
+          transHistory.DisplayTransactions(loginId, transList);
         }
         else if (input == "1")
         {
           //set type
-          type = "to Checking,";
+          type = "deposited to Checking.";
           //deposit to checking
           Console.WriteLine("How much would you like to deposit to Checking?");
           var amtToDeposit = double.Parse(Console.ReadLine());
@@ -154,7 +158,7 @@ namespace BankMgr
           Console.WriteLine("Your deposit has been completed.");
           acctTracker.DisplayAccount(acct1);
           transHistory.CreateTransaction(amtToDeposit, loginId, transList, type);
-          transHistory.DisplayTransactions(loginId, transList, type);
+          transHistory.DisplayTransactions(loginId, transList);
         }
 
       }
