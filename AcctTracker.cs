@@ -10,8 +10,11 @@ namespace BankMgr
 
     public List<AccountHolder> AccountHolders = new List<AccountHolder>();
 
-    public string CheckUser(string loginId, List<AccountHolder> acctList)
+    public string CheckUser(List<AccountHolder> acctList)
     {
+      //and ask for user name, then set var for loginId
+      Console.WriteLine("Please enter your user name.");
+      var loginId = Console.ReadLine();
       //set var for while loop that checks username
       var checkingUser = true;
       //start while loop to check user
@@ -50,6 +53,44 @@ namespace BankMgr
           Console.WriteLine("Incorrect username/password combination. Please try again.");
         }
       }
+    }
+    public void UpdateDefaultPassword(AccountHolder acct1)
+    {
+      Console.ForegroundColor = ConsoleColor.Red;
+      Console.WriteLine(@"
+      You are using the default password. 
+      Please select a new password. Your new password should be 
+      between 8 and 16 characters and contain an upper case letter, 
+      a lower case letter, and a special character(punctuation).");
+      var isDefault = true;
+      while (isDefault)
+      {
+        var newPassword = Console.ReadLine();
+        if (newPassword == "P@ssw0rd")
+        {
+          Console.WriteLine(@"
+          You are using the default password. 
+          Please select a new password. Your new password should be 
+          between 8 and 16 characters and contain an upper case letter, 
+          a lower case letter, and a special character(punctuation).");
+        }
+        else if (newPassword.Length >= 8 && newPassword.Length < 17 && newPassword.Any(char.IsUpper) && newPassword.Any(char.IsLower) && newPassword.Any(char.IsPunctuation) && newPassword != "P@ssw0rd")
+        {
+          Console.WriteLine($"Thank you. Your new password is : {newPassword}");
+          acct1.Password = newPassword;
+          isDefault = false;
+        }
+        else
+        {
+          Console.WriteLine(@"
+          Your password does not meet the requirements. 
+          Please select a new password. Your new password should be 
+          between 8 and 16 characters and contain an upper case letter, 
+          a lower case letter, and a special character(punctuation).");
+        }
+      }
+      Console.ForegroundColor = ConsoleColor.White;
+
     }
     public void DisplayAccount(AccountHolder acct1)
     {

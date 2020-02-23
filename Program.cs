@@ -26,14 +26,19 @@ namespace BankMgr
       //set var for while loop that runs after login
       var isRunning = true;
 
-      //welcome and ask for user name, then set var for loginId
+      //welcome 
       Console.WriteLine("Welcome to Suncoast Bank.");
-      Console.WriteLine("Please enter your user name.");
-      var loginId = Console.ReadLine();
-      acctTracker.CheckUser(loginId, acctList);
+      //method to check user
+      var loginId = acctTracker.CheckUser(acctList);
       //use loginId set account to var
       var acct1 = acctList.First(user => user.User == loginId);
       acctTracker.LogIn(loginId, acct1);
+      //check for default password
+      if (acct1.Password == "P@ssw0rd")
+      {
+        //update password if password is still default
+        acctTracker.UpdateDefaultPassword(acct1);
+      }
 
       //Display account info
       acctTracker.DisplayAccount(acct1);

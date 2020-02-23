@@ -9,3 +9,4 @@ The app should save my transactions to file using a standard format. This saving
 The app should load up past transaction from a file on start up.
 The app should allow multiple users with password protection.
 Each user should be able to display their own transaction history, without seeing other users' data.
+The app should check if default password is being used and force password update.
