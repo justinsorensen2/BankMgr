@@ -42,6 +42,8 @@ namespace BankMgr
 
       //Display account info
       acctTracker.DisplayAccount(acct1);
+      //display transaction history
+      transHistory.DisplayTransactions(loginId, transList);
       //start while loop for user options
       while (isRunning)
       {
